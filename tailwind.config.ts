@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      teal: {
+        custom: '#007580', // Add your custom color
+      },
     },
   },
   plugins: [],
