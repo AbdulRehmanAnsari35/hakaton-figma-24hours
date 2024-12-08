@@ -7,8 +7,8 @@ const HomePage = () => {
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        <div>
-          <p className="mt-4 text-gray-600 text-sm md:text-base lg:text-lg">
+        <div className="space-y-8">
+          <p className="mt-1 text-gray-600 text-sm md:text-base lg:text-lg">
             Welcome to Chairy
           </p>
           <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900">
