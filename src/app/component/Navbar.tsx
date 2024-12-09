@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { CiShoppingCart } from "react-icons/ci";
+import { FiChevronDown } from "react-icons/fi";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -11,7 +12,10 @@ const Navbar = () => {
         <div className="container opacity-70 mx-auto flex justify-between items-center px-4 py-2">
           <span>✓ Free Shipping On All Orders Over $50</span>
           <div className="flex items-center gap-4">
-            <span>Eng</span>
+          <div className="flex items-center hover:underline ">
+        <span>Eng</span>
+        <FiChevronDown className="w-4 h-4 ml-1 text-gray-300" />
+      </div>
             <Link href="/Faqs" className="hover:underline">
               FAQs
             </Link>
@@ -59,7 +63,7 @@ const Navbar = () => {
             </li>
             <li>
               <Link
-                href="/SingleProduct"
+                href="/Shop"
                 className="text-teal-500 hover:text-teal-950"
               >
                 Shop
@@ -71,8 +75,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-teal-500 hover:text-teal-950">
-                Pages
+              <Link href="/Contact" className="text-teal-500 hover:text-teal-950">
+                Contact
               </Link>
             </li>
             <li>
@@ -83,9 +87,9 @@ const Navbar = () => {
           </ul>
 
           <div className="mr-4 hover:underline hidden sm:block">
-            <Link href="/Contact">
+            
               <p>ContactUs:035162895</p>
-            </Link>
+            
           </div>
         </div>
       </nav>

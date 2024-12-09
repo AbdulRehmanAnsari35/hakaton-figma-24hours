@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { BsFillCartDashFill } from 'react-icons/bs'
+import Link from 'next/link'
 
 
 const page = () => {
@@ -41,10 +42,12 @@ const page = () => {
                       Library Stool Chair
                     </h3>
                     <div className="w-13 mr-5 px-2 py-2 bg-gray-300 text-white rounded-lg hover:bg-teal-600 flex items-center justify-center">
+                    <Link href="/SingleProduct">
                     <button>
                       <BsFillCartDashFill className="mr-1" />{" "}
                       {/* Cart Icon with margin */}
                     </button>
+                    </Link>
                     </div>
                   </div>
 
@@ -95,10 +98,12 @@ const page = () => {
                       Library Stool Chair
                     </h3>
                     <div className="w-13 mr-5 px-2 py-2 bg-gray-300 text-white rounded-lg hover:bg-teal-600 flex items-center justify-center">
+                    <Link href="/SingleProduct">
                     <button>
                       <BsFillCartDashFill className="mr-1" />{" "}
                       {/* Cart Icon with margin */}
                     </button>
+                    </Link>
                     </div>
                   </div>
 
@@ -149,10 +154,12 @@ const page = () => {
                       Library Stool Chair
                     </h3>
                     <div className="w-13 mr-5 px-2 py-2 bg-gray-300 text-white rounded-lg hover:bg-teal-600 flex items-center justify-center">
+                    <Link href="/SingleProduct">
                     <button>
                       <BsFillCartDashFill className="mr-1" />{" "}
                       {/* Cart Icon with margin */}
                     </button>
+                    </Link>
                     </div>
                   </div>
 
