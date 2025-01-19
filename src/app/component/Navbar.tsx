@@ -84,6 +84,7 @@ const Navbar = () => {
                 About
               </Link>
             </li>
+  
           </ul>
 
           <div className="mr-4 hover:underline hidden sm:block">
