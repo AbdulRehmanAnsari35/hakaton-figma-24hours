@@ -64,13 +64,13 @@ const ProductCards = () => {
   };
 
   if (loading) {
-    return <div className="text-center py-20">Loading products...</div>;
+    return <div className="text-center py-20">Loading products</div>;
   }
 
   return (
     <div>
       <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Sanity API's Data</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8">Sanity APIs Data</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {products.map((product) => (
@@ -140,7 +140,7 @@ const ProductCards = () => {
               ))}
             </ul>
           ) : (
-            <p className="text-black text-center">Your Cart Is Empty. Please Add Products</p>
+            <p className="text-black text-center">Your Cart Is Empty Please Add Products</p>
           )}
         </div>
       </section>
