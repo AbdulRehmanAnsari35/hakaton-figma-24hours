@@ -55,7 +55,7 @@ const Navbar = () => {
             {/* Wishlist Button */}
             <Link href="/Wishlist">
               <div className="flex items-center space-x-2 bg-white rounded-lg px-4 py-2 hover:bg-gray-300 sm:px-4 sm:py-2 sm:space-x-2">
-                <TbJewishStar className="h-6 w-6 text-indigo-900 sm:h-6 sm:w-6 h-4 w-4" />
+                <TbJewishStar className="h-6 w-6 text-indigo-900 sm:h-6 sm:w-6 " />
                 <span className="text-indigo-900 font-medium text-sm sm:text-base hidden sm:inline">Wishlist</span>
                 <span className="bg-red-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
                   3
@@ -66,7 +66,7 @@ const Navbar = () => {
             {/* Cart Button */}
             <Link href="/Cart">
               <div className="flex items-center space-x-2 bg-white rounded-lg px-4 py-2 hover:bg-gray-300 sm:px-4 sm:py-2 sm:space-x-2">
-                <CiShoppingCart className="h-6 w-6 text-indigo-900 sm:h-6 sm:w-6 h-4 w-4" />
+                <CiShoppingCart className="h-6 w-6 text-indigo-900 sm:h-6 sm:w-6 " />
                 <span className="text-indigo-900 font-medium text-sm sm:text-base hidden sm:inline">Cart</span>
                 <span className="bg-teal-500 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center">
                   2
