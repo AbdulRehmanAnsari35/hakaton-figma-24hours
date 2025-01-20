@@ -2,9 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BsFillCartPlusFill } from "react-icons/bs";
+import { FaHeart, FaRegHeart } from "react-icons/fa"; // Add heart icons for wishlist
+import Link from "next/link";
 import sanityClient from "@sanity/client";
+import { useCart } from "../Context/cartContext";
+import { useRouter } from "next/navigation";
 
-// Initialize Sanity client
 const client = sanityClient({
   projectId: "s3a2qhkk",
   dataset: "production",
@@ -24,30 +27,35 @@ type Product = {
   tags?: string[];
 };
 
-const ProductCards = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+interface ProductCardsProps {
+  searchQuery: string;
+}
 
-  // Use effect with proper client-side logic
+const ProductCards: React.FC<ProductCardsProps> = ({ searchQuery }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const { addToCart } = useCart();
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [wishlist, setWishlist] = useState<string[]>([]); // Wishlist state to track product IDs
+  const router = useRouter();
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const query = `
-          *[_type == "products"]{
-            _id,
-            title,
-            price,
-            priceWithoutDiscount,
-            badge,
-            "imageUrl": image.asset->url,
-            description,
-            inventory,
-            tags
-          }
-        `;
+        const query = `*[_type == "products"]{
+          _id,
+          title,
+          price,
+          priceWithoutDiscount,
+          badge,
+          "imageUrl": image.asset->url,
+          description,
+          inventory,
+          tags
+        }`;
         const productsData: Product[] = await client.fetch(query);
         setProducts(productsData);
+        setFilteredProducts(productsData);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -56,95 +64,90 @@ const ProductCards = () => {
     };
 
     fetchProducts();
-  }, []); // Empty dependency ensures this runs only once
+  }, []);
 
+  // Toggle product in wishlist
+  const toggleWishlist = (product: Product) => {
+    setWishlist((prevWishlist) => {
+      const updatedWishlist = prevWishlist.includes(product._id)
+        ? prevWishlist.filter((id) => id !== product._id) // Remove from wishlist
+        : [...prevWishlist, product._id]; // Add to wishlist
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist)); // Persist to localStorage
+      return updatedWishlist;
+    });
+  };
+
+  // Add to Cart logic
   const AddToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    addToCart(product);
     alert(`${product.title} added to cart!`);
   };
 
+  const goToWishlistPage = () => {
+    router.push("/wishlist"); // Redirect to the wishlist page
+  };
+
   if (loading) {
-    return <div className="text-center py-20">Loading products</div>;
+    return <div className="text-center py-20">Loading products...</div>;
   }
 
   return (
-    <div>
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Sanity APIs Data</h2>
-
+    <section className="container mx-auto px-4 py-16">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8">Our Products</h2>
+      {filteredProducts.length === 0 ? (
+        <div>No products found</div>
+      ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <div key={product._id} className="overflow-hidden w-80">
-              <div className="relative w-full h-[312px]">
-                <Image
-                  src={product.imageUrl}
-                  alt={product.title}
-                  width={312}
-                  height={312}
-                  className="object-cover w-[290px] h-[290px]"
-                />
-                {product.badge && (
-                  <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                    {product.badge}
-                  </span>
-                )}
-              </div>
-              <div className="p-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium text-gray-800">{product.title}</h3>
+              <Link href={`/productss/${product._id}`}>
+                <div className="relative w-full h-[312px] cursor-pointer">
+                  <Image
+                    src={product.imageUrl}
+                    alt={product.title}
+                    width={312}
+                    height={312}
+                    className="object-cover w-[290px] h-[290px]"
+                  />
+                  {product.badge && (
+                    <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                      {product.badge}
+                    </span>
+                  )}
                 </div>
-                <div className="flex justify-between items-center">
-                  <p className="text-black font-bold mt-2">
-                    ${product.price}
-                    {product.priceWithoutDiscount && (
-                      <span className="text-gray-500 line-through text-sm ml-2">
-                        ${product.priceWithoutDiscount}
-                      </span>
-                    )}
-                  </p>
+              </Link>
+              <div className="p-4">
+                <h3 className="text-lg font-medium text-gray-800">{product.title}</h3>
+                <p className="text-black font-bold mt-2">${product.price.toFixed(2)}</p>
+
+                <div className="flex items-center justify-between mt-4">
+                  {/* Add to Cart Button */}
                   <button
                     onClick={() => AddToCart(product)}
-                    className="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-2 rounded-lg mt-2 mr-5"
+                    className="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-2 rounded-lg"
                   >
                     <BsFillCartPlusFill className="mr-2" />
                     Add to Cart
+                  </button>
+
+                  {/* Wishlist Icon */}
+                  <button
+                    onClick={() => toggleWishlist(product)}
+                    className="text-red-500 hover:text-red-700 mr-5"
+                  >
+                    {wishlist.includes(product._id) ? (
+                      <FaHeart size={24} />
+                    ) : (
+                      <FaRegHeart size={24} />
+                    )}
                   </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-
-        {/* Cart Summary */}
-        <div className="mt-8 bg-slate-100 p-4 rounded-lg shadow-md">
-          <h2 className="text-lg font-black text-red-800">Cart Summary</h2>
-          {cart.length > 0 ? (
-            <ul className="space-y-4">
-              {cart.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex justify-between items-center bg-white shadow-sm p-4 rounded-md"
-                >
-                  <div>
-                    <p className="font-medium text-slate-900">{item.title}</p>
-                    <p className="text-sm text-blue-600">${item.price.toFixed(2)}</p>
-                  </div>
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.title}
-                    width={50}
-                    height={50}
-                    className="rounded-md"
-                  />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-black text-center">Your Cart Is Empty Please Add Products</p>
-          )}
-        </div>
-      </section>
-    </div>
+      )}
+    </section>
   );
 };
 

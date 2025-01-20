@@ -143,52 +143,7 @@ const HomePage = () => {
       </section>
 
       {/* Products Grid Section */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
-          Our Products
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
-          {["prodct1", "prodct2", "prodct3", "product-1"].map((product, i) => (
-            <div key={i} className="w-80">
-              <div className="relative w-full h-[312px]">
-                <Image
-                  src={`/${product}.png`} // Correct image path for products
-                  alt={product}
-                  width={312}
-                  height={312}
-                  className="object-cover w-[290px] h-[290px]"
-                />
-                {i === 1 && (
-                  <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
-                    Sale
-                  </span>
-                )}
-                {i === 0 && (
-                  <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
-                    New
-                  </span>
-                )}
-              </div>
-              <div className="p-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium text-gray-800">Library Stool Chair</h3>
-                  <Link href="/SingleProduct">
-                    <button className="w-13 mr-5 px-2 py-2 bg-gray-300 text-white rounded-lg hover:bg-teal-600 flex items-center justify-center">
-                      <BsFillCartDashFill className="mr-1" />
-                    </button>
-                  </Link>
-                </div>
-                <p className="text-black font-bold mt-2">
-                  $20{" "}
-                  <span className="line-through text-sm text-gray-500 font-medium">
-                    $30
-                  </span>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+     
     </div>
   );
 };
