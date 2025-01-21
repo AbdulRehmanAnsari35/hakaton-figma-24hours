@@ -7,7 +7,7 @@ import Link from "next/link";
 const client = sanityClient({
   projectId: "s3a2qhkk",
   dataset: "production",
-  useCdn: true,
+  useCdn: false,
   apiVersion: "2023-01-01",
 });
 

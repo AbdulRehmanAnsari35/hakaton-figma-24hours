@@ -7,7 +7,7 @@ import Link from "next/link";
 const client = sanityClient({
   projectId: "s3a2qhkk", // Replace with your Sanity project ID
   dataset: "production",  // Replace with your dataset name
-  useCdn: true,
+  useCdn: false,
   apiVersion: "2023-01-01",
 });
 

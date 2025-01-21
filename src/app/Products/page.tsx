@@ -10,7 +10,7 @@ import { useCart } from "../Context/cartContext";
 const client = sanityClient({
   projectId: "s3a2qhkk",
   dataset: "production",
-  useCdn: true,
+  useCdn: false,
   apiVersion: "2023-01-01",
 });
 
