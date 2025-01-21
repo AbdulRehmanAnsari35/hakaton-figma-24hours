@@ -51,6 +51,7 @@ const Navbar = () => {
           </div>
 
           <div className="flex space-x-3">
+            
             {/* Wishlist Button */}
             <Link href="/Wishlist">
               <div className="flex items-center space-x-2 bg-white rounded-lg px-4 py-2 hover:bg-gray-300 sm:px-4 sm:py-2 sm:space-x-2">
@@ -82,29 +83,32 @@ const Navbar = () => {
           {/* Menu Items (visible on larger screens) */}
           <ul className="hidden sm:flex space-x-8 text-gray-700 w-full justify-center sm:justify-start">
             <li>
-              <Link href="/" className="text-teal-500 hover:text-teal-950">
+              <Link href="/" className="text-teal-500 hover:text-teal-950 hover:underline">
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/Shop" className="text-teal-500 hover:text-teal-950">
+              <Link href="/Shop" className="text-teal-500 hover:text-teal-950 hover:underline">
                 Shop
               </Link>
             </li>
             <li>
-              <Link href="/Products" className="text-teal-500 hover:text-teal-950">
+              <Link href="/Products" className="text-teal-500 hover:text-teal-950 hover:underline">
                 Product
               </Link>
             </li>
             <li>
-              <Link href="/Contact" className="text-teal-500 hover:text-teal-950">
+              <Link href="/Contact" className="text-teal-500 hover:text-teal-950 hover:underline">
                 Contact
               </Link>
             </li>
             <li>
-              <Link href="/AboutUs" className="text-teal-500 hover:text-teal-950">
+              <Link href="/AboutUs" className="text-teal-500 hover:text-teal-950 hover:underline">
                 About
               </Link>
+            </li>
+            <li>
+            <Link href="/Signup" className="text-gray-500 font-semibold hover:text-black hover:underline">Signup/register</Link>
             </li>
             {/* Search bar */}
             <div className="hidden sm:block">
@@ -157,6 +161,9 @@ const Navbar = () => {
             <Link href="/AboutUs" className="text-teal-500 hover:text-teal-950" onClick={toggleMobileMenu}>
               About
             </Link>
+          </li>
+          <li>
+          <Link href="/Signup" className="text-gray-500 font-semibold hover:text-black">Signup/register</Link>
           </li>
         </ul>
       </div>
