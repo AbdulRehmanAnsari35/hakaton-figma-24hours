@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const HomePage = () => {
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen overflow-hidden">
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Left section: Text content */}

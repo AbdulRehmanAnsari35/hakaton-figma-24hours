@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const CartPage = () => {
   const { cart, removeFromCart } = useCart();
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false); // Used to handle redirecting state
   const [isPaymentSectionVisible, setIsPaymentSectionVisible] = useState(false);
   const [paymentData, setPaymentData] = useState({
     name: "",
@@ -22,7 +22,15 @@ const CartPage = () => {
 
   const handleCheckout = () => {
     if (cart.length > 0) {
+      setIsRedirecting(true); // Disable the button and show processing state
       setIsPaymentSectionVisible(true); // Show payment section
+
+      // Simulate a delay for async payment processing (like API calls)
+      setTimeout(() => {
+        setIsRedirecting(false); // Enable the button after payment processing
+        console.log("Redirecting to payment...");
+        // You can also handle further actions here like redirecting to a success page
+      }, 2000); // Simulating a 2-second delay
     } else {
       alert("Your cart is empty. Add items to proceed to checkout.");
     }
@@ -30,9 +38,10 @@ const CartPage = () => {
 
   const handlePaymentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here, you can handle payment validation and API calls for payment processing
+    // Handle actual payment processing here
     console.log("Payment submitted", paymentData);
-    // Show the "Thank You" popup after payment is complete
+
+    // Show the "Thank You" popup after payment
     setShowThankYouPopup(true);
     setIsPaymentSectionVisible(false); // Hide payment section
   };
@@ -86,7 +95,7 @@ const CartPage = () => {
               className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
               disabled={isRedirecting}
             >
-              Proceed to Payment
+              {isRedirecting ? "Processing..." : "Proceed to Payment"}
             </button>
           </div>
 

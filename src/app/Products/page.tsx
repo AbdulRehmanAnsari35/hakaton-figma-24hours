@@ -6,7 +6,6 @@ import { FaHeart, FaRegHeart } from "react-icons/fa"; // Add heart icons for wis
 import Link from "next/link";
 import sanityClient from "@sanity/client";
 import { useCart } from "../Context/cartContext";
-import { useRouter } from "next/navigation";
 
 const client = sanityClient({
   projectId: "s3a2qhkk",
@@ -27,17 +26,11 @@ type Product = {
   tags?: string[];
 };
 
-interface ProductCardsProps {
-  searchQuery: string;
-}
-
-const ProductCards: React.FC<ProductCardsProps> = ({ searchQuery }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+const ProductCards: React.FC = () => {
   const { addToCart } = useCart();
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [wishlist, setWishlist] = useState<string[]>([]); // Wishlist state to track product IDs
-  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,7 +47,6 @@ const ProductCards: React.FC<ProductCardsProps> = ({ searchQuery }) => {
           tags
         }`;
         const productsData: Product[] = await client.fetch(query);
-        setProducts(productsData);
         setFilteredProducts(productsData);
         setLoading(false);
       } catch (error) {
@@ -81,10 +73,6 @@ const ProductCards: React.FC<ProductCardsProps> = ({ searchQuery }) => {
   const AddToCart = (product: Product) => {
     addToCart(product);
     alert(`${product.title} added to cart!`);
-  };
-
-  const goToWishlistPage = () => {
-    router.push("/wishlist"); // Redirect to the wishlist page
   };
 
   if (loading) {

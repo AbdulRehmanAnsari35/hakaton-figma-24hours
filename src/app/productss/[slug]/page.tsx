@@ -5,6 +5,16 @@ import Image from "next/image";
 import sanityClient from "@sanity/client";
 import Link from "next/link";
 
+// Define the Product type
+type Product = {
+  _id: string;
+  title: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  inventory: number;
+};
+
 const client = sanityClient({
   projectId: "s3a2qhkk",
   dataset: "production",
@@ -14,7 +24,7 @@ const client = sanityClient({
 
 const ProductDetails = () => {
   const { slug } = useParams(); // Fetch the slug from the URL
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null); // Set type to Product or null
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,9 +60,9 @@ const ProductDetails = () => {
           alt={product.title}
           width={500}
           height={500}
-          className="rounded-lg "
+          className="rounded-lg"
         />
-        
+
         <div>
           <p className="text-xl text-gray-800">${product.price.toFixed(2)}</p>
           <p className="mt-4 text-gray-600">{product.description}</p>
@@ -61,35 +71,35 @@ const ProductDetails = () => {
           </button>
         </div>
       </div>
-      <div className="flex mt-20  ">
+      <div className="flex mt-20">
         <h1 className="text-3xl font-semibold ml-10">Our Products</h1>
-        <Link href={"/"} className="ml-[900] underline hover:text-blue-700">View all</Link>
-        </div>
+        <Link href={"/"} className="ml-[900] underline hover:text-blue-700">
+          View all
+        </Link>
+      </div>
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 max-w-6xl mx-auto mt-8">
-  {[
-    { src: "/prodct3.png", title: "Library Stool Chair", price: "$99" },
-    { src: "/product-1.png", title: "Library Stool Chair", price: "$99" },
-    { src: "/image2.png", title: "Library Stool Chair", price: "$99" },
-    { src: "/product-3.png", title: "Library Stool Chair", price: "$99" },
-    { src: "/prodct1.png", title: "Library Stool Chair", price: "$99" },
-    { src: "/01.png", title: "Library Stool Chair", price: "$99" },
-  ].map((product, index) => (
-    <div key={index} className="text-center">
-      <Image
-        src={product.src}
-        alt={product.title}
-        width={350}
-        height={200}
-        className="object-cover rounded-md shadow-md mb-2"
-      />
-      <p className="text-gray-800 font-medium">{product.title}</p>
-      <p className="text-black font-semibold">{product.price}</p>
+        {[
+          { src: "/prodct3.png", title: "Library Stool Chair", price: "$99" },
+          { src: "/product-1.png", title: "Library Stool Chair", price: "$99" },
+          { src: "/image2.png", title: "Library Stool Chair", price: "$99" },
+          { src: "/product-3.png", title: "Library Stool Chair", price: "$99" },
+          { src: "/prodct1.png", title: "Library Stool Chair", price: "$99" },
+          { src: "/01.png", title: "Library Stool Chair", price: "$99" },
+        ].map((product, index) => (
+          <div key={index} className="text-center">
+            <Image
+              src={product.src}
+              alt={product.title}
+              width={350}
+              height={200}
+              className="object-cover rounded-md shadow-md mb-2"
+            />
+            <p className="text-gray-800 font-medium">{product.title}</p>
+            <p className="text-black font-semibold">{product.price}</p>
+          </div>
+        ))}
+      </div>
     </div>
-  ))}
-</div>
-
-    </div>
-    
   );
 };
 
