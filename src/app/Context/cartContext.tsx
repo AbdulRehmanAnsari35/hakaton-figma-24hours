@@ -1,34 +1,52 @@
-"use client"; 
-import React, { createContext, useContext, useState } from "react";
+"use client";
 
-type Product = {
+import React, { createContext, useContext, useState, ReactNode } from "react";
+
+interface CartItem {
   _id: string;
   title: string;
   price: number;
   imageUrl: string;
-};
+}
 
-type CartContextType = {
-  cart: Product[];
-  addToCart: (product: Product) => void;
+interface CartContextProps {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
-};
+  clearCart: () => void;
+}
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext<CartContextProps | undefined>(undefined);
 
-export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [cart, setCart] = useState<Product[]>([]);
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
+  const addToCart = (item: CartItem) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((cartItem) => cartItem._id === item._id);
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem._id === item._id
+            ? { ...cartItem, price: cartItem.price + item.price }
+            : cartItem
+        );
+      }
+      return [...prevCart, { ...item }];
+    });
   };
 
   const removeFromCart = (id: string) => {
-    setCart((prevCart) => prevCart.filter((item) => item._id !== id));
+    setCart((prevCart) =>
+      prevCart.filter((cartItem) => cartItem._id !== id)
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
