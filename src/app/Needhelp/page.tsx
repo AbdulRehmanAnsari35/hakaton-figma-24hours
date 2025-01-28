@@ -1,47 +1,51 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 const NeedHelpPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [status, setStatus] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would send the data to your backend or support API
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      const response = await fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name, email, message }),
       });
       if (response.ok) {
-        setStatus('Message sent successfully!');
-        setName('');
-        setEmail('');
-        setMessage('');
+        setStatus("Message sent successfully!");
+        setName("");
+        setEmail("");
+        setMessage("");
       } else {
-        setStatus('There was an error sending your message. Please try again.');
+        setStatus("There was an error sending your message. Please try again.");
       }
-    } catch (error) {
-      setStatus('Network error. Please try again later.');
+    } catch {
+      setStatus("Network error. Please try again later."); // Removed unused `error` variable.
     }
   };
 
   return (
     <div className="max-w-5xl mx-auto py-10 px-4">
-      <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">Need Help?</h1>
+      <h1 className="text-2xl md:text-4xl font-bold text-center mb-6">
+        Need Help?
+      </h1>
       <p className="text-center text-gray-600 mb-12">
         Have a question or need support? Fill out the form below, and we’ll get back to you as soon as possible.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-semibold mb-2" htmlFor="name">Full Name</label>
+          <label className="block text-sm font-semibold mb-2" htmlFor="name">
+            Full Name
+          </label>
           <input
             type="text"
             id="name"
@@ -53,7 +57,9 @@ const NeedHelpPage = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold mb-2" htmlFor="email">Email Address</label>
+          <label className="block text-sm font-semibold mb-2" htmlFor="email">
+            Email Address
+          </label>
           <input
             type="email"
             id="email"
@@ -65,7 +71,9 @@ const NeedHelpPage = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold mb-2" htmlFor="message">Your Message</label>
+          <label className="block text-sm font-semibold mb-2" htmlFor="message">
+            Your Message
+          </label>
           <textarea
             id="message"
             value={message}
@@ -76,7 +84,12 @@ const NeedHelpPage = () => {
           />
         </div>
 
-        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg">Send Message</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white p-3 rounded-lg"
+        >
+          Send Message
+        </button>
       </form>
 
       {status && <p className="mt-6 text-center text-sm text-gray-600">{status}</p>}

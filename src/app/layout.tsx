@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import { CartProvider } from "./Context/cartContext";
-import { SessionProvider } from "next-auth/react";
 
 
 const geistSans = localFont({

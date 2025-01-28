@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import Stripe from 'stripe';
 
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 export async function POST(request: NextRequest) {
     try {
         const { amount } = await request.json();
@@ -9,18 +11,16 @@ export async function POST(request: NextRequest) {
             amount: amount,
             currency: 'usd',
             automatic_payment_methods: { enabled: true },
-            // automatic_payment_methods: ['card_present'], 
-        })
+        });
 
-        return NextResponse.json({ clientSecret: paymentIntent.client_secret })
+        return NextResponse.json({ clientSecret: paymentIntent.client_secret });
 
-    }
-    catch (err: unknown) {
+    } catch (err: unknown) {
         if (err instanceof Error) {
             return NextResponse.json({
                 status: 500,
-                body: { error: err.message }
-            })
+                body: { error: err.message },
+            });
         }
     }
 }
