@@ -10,14 +10,8 @@ const CartPage = () => {
   const calculateTotal = () =>
     cart.reduce((total, item) => total + item.price, 0).toFixed(2);
 
-  const handleCheckout = () => {
-    if (cart.length > 0) {
-      const total = calculateTotal();
-     
-      router.push(`/Payment?total=${total}`);
-    } else {
-      alert("Your cart is empty. Add items to proceed to checkout.");
-    }
+  const handleNavigateToPayment = () => {
+    router.push("/Stripe-Payment");
   };
 
   return (
@@ -59,10 +53,10 @@ const CartPage = () => {
           </div>
           <div className="mt-8 flex justify-end">
             <button
-              onClick={handleCheckout}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+              onClick={handleNavigateToPayment}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
-              Proceed to Payment
+              Go to Stripe Payment
             </button>
           </div>
         </>

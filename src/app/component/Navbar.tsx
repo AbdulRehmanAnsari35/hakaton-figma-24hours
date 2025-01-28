@@ -6,8 +6,12 @@ import { FiChevronDown, FiMenu } from "react-icons/fi"; // Hamburger menu icon
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { TbJewishStar } from "react-icons/tb";
+import { Button } from "@/components/ui/button";
+
 
 const Navbar = () => {
+
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   const handleSearch = (query: string) => {
@@ -32,7 +36,7 @@ const Navbar = () => {
             <Link href="/Faqs" className="hover:underline">
               FAQs
             </Link>
-            <Link href="#" className="hover:underline">
+            <Link href="/Needhelp" className="hover:underline">
               Need Help
             </Link>
           </div>
@@ -110,6 +114,8 @@ const Navbar = () => {
             <li>
             <Link href="/Signup" className="text-gray-500 font-semibold hover:text-black hover:underline">Signup/register</Link>
             </li>
+           
+            
             {/* Search bar */}
             <div className="hidden sm:block">
               <SearchBar onSearch={handleSearch} />
@@ -165,6 +171,7 @@ const Navbar = () => {
           <li>
           <Link href="/Signup" className="text-gray-500 font-semibold hover:text-black">Signup/register</Link>
           </li>
+          
         </ul>
       </div>
     </header>
