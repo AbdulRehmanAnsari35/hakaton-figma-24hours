@@ -1,18 +1,27 @@
-'use client'; // Mark this file as a client component
+'use client'
 
-import { useSearchParams } from 'next/navigation';
+import { FC, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 
-const PaymentSuccess = () => {
-    const searchParams = useSearchParams(); // Use this hook to access search params
-
-    // Get the `amount` from searchParams
-    const amount = searchParams.get('amount');
-
-    return (
-        <div className="text-center w-full">
-            <h1 className="text-6xl">Thank you for purchasing $ {amount}</h1>
-        </div>
-    );
+const PaymentSuccess: FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PaymentDetails />
+    </Suspense>
+  )
 }
 
-export default PaymentSuccess;
+const PaymentDetails: FC = () => {
+  const searchParams = useSearchParams()
+  const amount = searchParams?.get('amount') || '0'
+
+  return (
+    <div className="text-center w-full">
+      <h1 className="text-6xl">
+        Thank you for purchasing ${parseFloat(amount).toFixed(2)}
+      </h1>
+    </div>
+  )
+}
+
+export default PaymentSuccess
