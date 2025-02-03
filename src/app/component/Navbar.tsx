@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CiShoppingCart } from "react-icons/ci";
-import { FiChevronDown, FiMenu } from "react-icons/fi";
+import { FiMenu } from "react-icons/fi";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { TbJewishStar } from "react-icons/tb";
+import LanguageSwitcher from "../LanguageSwitcher/page";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -25,9 +26,9 @@ const Navbar = () => {
           <span>✓ Free Shipping On All Orders Over $50</span>
           <div className="flex items-center gap-4">
             <div className="flex items-center hover:underline">
-              <span>Eng</span>
-              <FiChevronDown className="w-4 h-4 ml-1 text-gray-300" />
+              <LanguageSwitcher />
             </div>
+
             <Link href="/Faqs" className="hover:underline">
               FAQs
             </Link>

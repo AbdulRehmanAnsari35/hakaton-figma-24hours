@@ -1,24 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import ChatBot from "../ChatBot/page";
 
 const NeedHelpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
+  const [chatOpen, setChatOpen] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would send the data to your backend or support API
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
+
       if (response.ok) {
         setStatus("Message sent successfully!");
         setName("");
@@ -28,7 +28,7 @@ const NeedHelpPage = () => {
         setStatus("There was an error sending your message. Please try again.");
       }
     } catch {
-      setStatus("Network error. Please try again later."); // Removed unused `error` variable.
+      setStatus("Network error. Please try again later.");
     }
   };
 
@@ -38,7 +38,8 @@ const NeedHelpPage = () => {
         Need Help?
       </h1>
       <p className="text-center text-gray-600 mb-12">
-        Have a question or need support? Fill out the form below, and we’ll get back to you as soon as possible.
+        Have a question or need support? Fill out the form below, and we’ll get
+        back to you as soon as possible.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -92,7 +93,20 @@ const NeedHelpPage = () => {
         </button>
       </form>
 
-      {status && <p className="mt-6 text-center text-sm text-gray-600">{status}</p>}
+      {status && (
+        <p className="mt-6 text-center text-sm text-gray-600">{status}</p>
+      )}
+
+      <div className="text-center mt-6">
+        <button
+          onClick={() => setChatOpen(!chatOpen)}
+          className="bg-green-600 text-white px-4 py-2 rounded-lg"
+        >
+          {chatOpen ? "Close Chat" : "Chat with Support"}
+        </button>
+      </div>
+
+      {chatOpen && <ChatBot />}
     </div>
   );
 };

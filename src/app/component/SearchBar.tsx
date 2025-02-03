@@ -20,7 +20,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-<div className="flex items-center border h-9 py-1 px-3 rounded-lg ml-20">
+    <div className="flex items-center border h-9 py-1 px-3 rounded-lg ml-20">
       <input
         type="text"
         value={query}
@@ -28,7 +28,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         className="border-none py-1 w-64"
         placeholder="Search for products..."
       />
-      {/* Replace button with the search icon */}
       <div
         onClick={handleSearch}
         className="ml-2 p-1  text-white rounded-lg cursor-pointer"

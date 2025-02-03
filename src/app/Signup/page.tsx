@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Image from "next/image";
 
@@ -39,7 +39,6 @@ const Signup = () => {
 
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">
-      {/* Left Section */}
       <div className="w-full md:w-1/2 bg-white flex flex-col justify-center p-8 md:p-16">
         <h1 className="text-3xl font-bold mb-4 text-gray-800">Hello!</h1>
         <p className="text-gray-600 mb-6">Please sign up to continue</p>
@@ -105,12 +104,15 @@ const Signup = () => {
           </button>
         </form>
       </div>
-      {/* Right Section */}
       <div className="hidden md:flex w-1/2 bg-green-100 flex-col justify-center items-center">
         <div className="text-center">
           <div className=" flex items-center justify-center">
-            <Image src="/02.png" alt="logo" width={200} height={200}
-            className="rounded-full"
+            <Image
+              src="/02.png"
+              alt="logo"
+              width={200}
+              height={200}
+              className="rounded-full"
             />
           </div>
           <h2 className="text-2xl font-bold mt-6 text-gray-800">Comforty</h2>

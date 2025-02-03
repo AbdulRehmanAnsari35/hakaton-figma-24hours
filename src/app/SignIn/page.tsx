@@ -82,7 +82,6 @@ const SignIn = () => {
           </a>
         </p>
       </div>
-      {/* Right Section */}
       <div className="hidden md:flex w-1/2 bg-blue-100 flex-col justify-center items-center">
         <div className="text-center">
           <div className="bg-blue-500 rounded-full flex items-center justify-center">

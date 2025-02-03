@@ -16,9 +16,9 @@ export const productSchema = defineType({
       type: "number",
     },
     {
-      name: 'price_id',
-      title: 'stripe Price Id',
-      type: 'string'
+      name: "price_id",
+      title: "Stripe Price Id",
+      type: "string",
     },
     {
       title: "Price without Discount",
@@ -58,14 +58,35 @@ export const productSchema = defineType({
       of: [{ type: "string" }],
       options: {
         list: [
-          { title: "Featured", value: "featured" },
+          { title: "Office", value: "office" },
           {
-            title: "Follow products and discounts on Instagram",
-            value: "instagram",
+            title: "Home",
+            value: "home",
           },
-          { title: "Gallery", value: "gallery" },
+          { title: "Expensive", value: "expensive" },
         ],
       },
+    },
+    {
+      name: "rating",
+      title: "Product Rating",
+      type: "object",
+      fields: [
+        {
+          name: "score",
+          title: "Average Rating",
+          type: "number",
+          validation: (Rule) => Rule.min(1).max(5),
+          description: "Rating from 1 to 5",
+        },
+        {
+          name: "count",
+          title: "Review Count",
+          type: "number",
+          validation: (Rule) => Rule.min(0),
+          description: "Total number of reviews",
+        },
+      ],
     },
   ],
 });

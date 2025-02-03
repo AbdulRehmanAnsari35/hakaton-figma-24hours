@@ -44,7 +44,9 @@ const WishlistPage = () => {
             inventory,
             tags
           }`;
-          const productsData: Product[] = await client.fetch(query, { wishlistIds });
+          const productsData: Product[] = await client.fetch(query, {
+            wishlistIds,
+          });
           setWishlistProducts(productsData);
         } catch (error) {
           console.error("Error fetching wishlist products:", error);
@@ -58,13 +60,15 @@ const WishlistPage = () => {
 
   const removeFromWishlist = (productId: string) => {
     // Remove product from local storage
-    const updatedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]").filter(
-      (id: string) => id !== productId
-    );
+    const updatedWishlist = JSON.parse(
+      localStorage.getItem("wishlist") || "[]"
+    ).filter((id: string) => id !== productId);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
 
     // Update the wishlistProducts state
-    setWishlistProducts((prevProducts) => prevProducts.filter((product) => product._id !== productId));
+    setWishlistProducts((prevProducts) =>
+      prevProducts.filter((product) => product._id !== productId)
+    );
   };
 
   if (loading) {
@@ -97,8 +101,12 @@ const WishlistPage = () => {
                 </div>
               </Link>
               <div className="p-4">
-                <h3 className="text-lg font-medium text-gray-800">{product.title}</h3>
-                <p className="text-black font-bold mt-2">${product.price.toFixed(2)}</p>
+                <h3 className="text-lg font-medium text-gray-800">
+                  {product.title}
+                </h3>
+                <p className="text-black font-bold mt-2">
+                  ${product.price.toFixed(2)}
+                </p>
 
                 <div className="mt-4">
                   <button

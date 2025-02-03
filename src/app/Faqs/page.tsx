@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { client } from "@/sanity/lib/client";
@@ -12,8 +12,6 @@ type FAQ = {
 
 const FAQPage = () => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
-
-  // Fetch FAQ data from Sanity
   useEffect(() => {
     const fetchFAQs = async () => {
       const query = `*[_type == "faq"] | order(createdAt desc) {
@@ -22,7 +20,7 @@ const FAQPage = () => {
         category,
         createdAt
       }`;
-      
+
       const fetchedFaqs = await client.fetch(query);
       setFaqs(fetchedFaqs);
     };
@@ -36,12 +34,16 @@ const FAQPage = () => {
         Frequently Asked Questions
       </h1>
       <p className="text-center text-gray-600 mb-12">
-        Here are some of the most frequently asked questions about our products and services.
+        Here are some of the most frequently asked questions about our products
+        and services.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {faqs.map((faq, index) => (
-          <div key={index} className="border bg-gray-100 rounded-lg shadow-sm p-5">
+          <div
+            key={index}
+            className="border bg-gray-100 rounded-lg shadow-sm p-5"
+          >
             <h2 className="text-lg font-medium flex justify-between items-center">
               {faq.question}
               <span className="text-gray-400">+</span>

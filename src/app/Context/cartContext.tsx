@@ -23,7 +23,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((cartItem) => cartItem._id === item._id);
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem._id === item._id
+      );
       if (existingItem) {
         return prevCart.map((cartItem) =>
           cartItem._id === item._id
@@ -36,9 +38,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFromCart = (id: string) => {
-    setCart((prevCart) =>
-      prevCart.filter((cartItem) => cartItem._id !== id)
-    );
+    setCart((prevCart) => prevCart.filter((cartItem) => cartItem._id !== id));
   };
 
   const clearCart = () => {
@@ -46,7 +46,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

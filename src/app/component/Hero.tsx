@@ -106,7 +106,7 @@ const HomePage = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
           <div className="relative flex items-center justify-center">
-            <p className="mt-80 ml-4 absolute transform -rotate-90 origin-bottom-left text-3xl sm:left-4 text-gray-900 font-semibold tracking-wide md:left-0">
+            <p className="mt-80 ml-4 absolute transform -rotate-90 origin-bottom-left text-3xl sm:left-4 text-gray-900 font-semibold tracking-wide md:left-0 sm:hidden">
               Explore New and Popular Styles
             </p>
             <div className="w-full lg:w-[585px] flex justify-center items-center bg-gray-200">
@@ -127,7 +127,7 @@ const HomePage = () => {
                 className="relative hover:shadow-lg overflow-hidden"
               >
                 <Image
-                  src={`/${chair}.png`} // Ensure correct path for chair images
+                  src={`/${chair}.png`}
                   alt={`Chair ${index + 1}`}
                   width={284}
                   height={284}
