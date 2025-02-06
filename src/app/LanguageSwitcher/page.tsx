@@ -1,10 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { FiChevronDown } from "react-icons/fi";
 
 const LanguageSwitcher = () => {
-  const { i18n } = useTranslation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const languages = [
@@ -14,11 +12,6 @@ const LanguageSwitcher = () => {
     { code: "de", label: "Deutsch" },
     { code: "it", label: "Italiano" },
   ];
-
-  const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
-    setIsDropdownOpen(false);
-  };
 
   return (
     <div className="relative">
@@ -40,7 +33,6 @@ const LanguageSwitcher = () => {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={() => changeLanguage(lang.code)}
               className="px-4 py-2 w-full text-left hover:bg-indigo-950 hover:underline hover:text-red-500"
             >
               {lang.label}
