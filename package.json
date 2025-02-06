@@ -10,6 +10,7 @@
     "migrate": "node scripts/migrate.mjs"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.11.0",
     "@radix-ui/react-slot": "^1.1.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.70.0",
