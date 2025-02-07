@@ -7,6 +7,7 @@ import Link from "next/link";
 import { TbJewishStar } from "react-icons/tb";
 import LanguageSwitcher from "../LanguageSwitcher/page";
 import { ClerkLoaded, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import Dropdown from "../Dropdown/page";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center px-4 py-2 opacity-70">
           <span>✓ Free Shipping On All Orders Over $50</span>
           <div className="flex items-center gap-4">
+            <Dropdown />
             <LanguageSwitcher />
             <Link href="/Faqs" className="hover:underline">
               FAQs
@@ -69,10 +71,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Navigation */}
       <nav className="bg-white border-t border-b-2 border-gray-300">
         <div className="container mx-auto flex justify-between items-center px-4 py-4">
-          {/* Desktop Navigation */}
           <ul className="hidden sm:flex space-x-8 text-gray-700 w-full justify-center sm:justify-start">
             {["Home", "Shop", "Products", "Contact", "About"].map((item) => (
               <li key={item}>
@@ -85,7 +85,6 @@ const Navbar = () => {
               </li>
             ))}
 
-            {/* Clerk Authentication */}
             <li>
               <ClerkLoaded>
                 {user ? (
@@ -97,12 +96,13 @@ const Navbar = () => {
                     </div>
                   </div>
                 ) : (
-                  <SignInButton mode="modal" />
+                  <div>
+                    <SignInButton mode="modal" />
+                  </div>
                 )}
               </ClerkLoaded>
             </li>
 
-            {/* Search */}
             <form action="/search" className="w-full sm:w-auto sm:mx-4">
               <input
                 type="text"
@@ -113,7 +113,6 @@ const Navbar = () => {
             </form>
           </ul>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
             className="sm:hidden flex items-center"
@@ -124,7 +123,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <div
         className={`fixed top-0 left-0 z-50 w-64 h-full bg-white shadow-md transition-transform duration-300 transform ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -152,7 +150,6 @@ const Navbar = () => {
             </li>
           ))}
 
-          {/* Clerk Authentication in Mobile Menu */}
           <li>
             <ClerkLoaded>
               {user ? (
