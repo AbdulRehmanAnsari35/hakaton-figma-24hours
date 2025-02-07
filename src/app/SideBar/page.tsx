@@ -1,68 +1,60 @@
-"use client"; // ✅ Ensure it's a client component
+"use client"; // Ensure this is a client component
 
-import {
-  Command,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandSeparator,
-} from "@/components/ui/command";
-import { LayoutDashboard, Newspaper, Folders, CreditCard, Settings, User } from "lucide-react";
+import { useState } from "react";
+import { LayoutDashboard, Newspaper, Folders, CreditCard, Settings, User, Search } from "lucide-react";
 import Link from "next/link";
 
 const SideBar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Sidebar items
+  const menuItems = [
+    { name: "Dashboard", icon: <LayoutDashboard className="mr-2 h-4 w-4" />, href: "/Dashboard" },
+    { name: "Upload Product Data", icon: <Newspaper className="mr-2 h-4 w-4" />, href: "/BulkUpload" },
+    { name: "Categories", icon: <Folders className="mr-2 h-4 w-4" />, href: "#" },
+  ];
+
+  const settingsItems = [
+    { name: "Profile", icon: <User className="mr-2 h-4 w-4" />, href: "#" },
+    { name: "Billing", icon: <CreditCard className="mr-2 h-4 w-4" />, href: "#" },
+    { name: "Settings", icon: <Settings className="mr-2 h-4 w-4" />, href: "#" },
+  ];
+
+  // Filter items based on search input
+  const filteredItems = [...menuItems, ...settingsItems].filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="hidden md:block h-[100vh] w-[350px] bg-secondary p-4">
-      {/* ✅ FIX: Ensure Command is rendered properly inside a div */}
-      <Command>
-        <CommandInput placeholder="Search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem asChild>
-              <Link href="/Dashboard" className="flex items-center">
-                <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
-              </Link>
-            </CommandItem>
+    <div className="hidden md:block h-screen w-[350px] bg-gray-100 p-4 shadow-lg">
+      {/* Search Input */}
+      <div className="flex items-center bg-white p-2 rounded-md shadow-sm mb-4">
+        <Search className="w-4 h-4 text-gray-500 mr-2" />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full outline-none bg-transparent text-sm"
+        />
+      </div>
 
-            <CommandItem asChild>
-              <Link href="/BulkUpload" className="flex items-center">
-                <Newspaper className="mr-2 h-4 w-4" /> Upload Product Data
-              </Link>
-            </CommandItem>
-
-            <CommandItem asChild>
-              <Link href="#" className="flex items-center">
-                <Folders className="mr-2 h-4 w-4" /> Categories
-              </Link>
-            </CommandItem>
-          </CommandGroup>
-
-          <CommandSeparator />
-
-          <CommandGroup heading="Settings">
-            <CommandItem asChild>
-              <Link href="#" className="flex items-center">
-                <User className="mr-2 h-4 w-4" /> Profile
-              </Link>
-            </CommandItem>
-
-            <CommandItem asChild>
-              <Link href="#" className="flex items-center">
-                <CreditCard className="mr-2 h-4 w-4" /> Billing
-              </Link>
-            </CommandItem>
-
-            <CommandItem asChild>
-              <Link href="#" className="flex items-center">
-                <Settings className="mr-2 h-4 w-4" /> Settings
-              </Link>
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
-      </Command>
+      {/* Sidebar Menu */}
+      <div className="space-y-2">
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="flex items-center p-2 rounded-md text-gray-700 hover:bg-gray-200 transition"
+            >
+              {item.icon} {item.name}
+            </Link>
+          ))
+        ) : (
+          <p className="text-gray-500 text-sm text-center mt-4">No results found.</p>
+        )}
+      </div>
     </div>
   );
 };
